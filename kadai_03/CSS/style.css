@@ -1,0 +1,231 @@
+main{
+    font-size: 14px;
+    font-family: verdana,sans-serif;
+    padding: 20px;
+    width: 960px;
+    text-align: center;
+    margin: 0 auto;
+}
+.hwrapper{
+   width: 100%;
+   height: 112px;
+   background-color: #00BCD4;
+   
+}
+/*ヘッダー内に画像やテキストを置く枠*/
+.header{
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 10px;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.title{
+  text-align: center;
+  display: none;
+  font-size: 30px;
+  font-family: verdana,sans-serif;
+  margin-left: 20px;
+}
+
+.mainimage{
+    height: 85px;
+    display: none;
+}
+
+/* フォーム */
+
+input[type="text"]{
+    padding: 6px 8px;
+    font-size: 14px;
+    outline: none;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    width: 300px;
+    margin-top: 20px;
+}
+input[type="text"]:focus,
+texture:focus {
+    box-shadow: 0 0 7px #00BCD4;
+    border: 1px solid #00BCD4;
+}
+
+textarea{
+    padding: 6px 8px;
+    outline: none;
+    border: 1px solid #DDD;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 14px;
+    width: 300px;
+    margin-top: 5px;
+}
+textarea:focus,
+texture:focus {
+    box-shadow: 0 0 7px #00BCD4;
+    border: 1px solid #00BCD4;
+}
+
+/* 送信ボタン */
+.send {
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 0.25em 7em;
+  text-decoration: none;
+  color: #00BCD4;
+  background: #ECECEC;
+  transition: .4s;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.send:hover {
+  background: #00bcd4;
+  color: white;
+}
+
+.flex-container {
+    width: 220px;
+    height: 725px;
+    display: flex;
+    justify-content:space-around;
+    flex-direction: column;
+    align-items: center;
+    float: left;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, .5);
+    border-radius: 20px;
+}
+
+h2 {
+    font-size: 16px;
+    font-family: verdana,sans-serif;
+    color: #00bcd4;
+}
+
+/* flexitemのhover */
+figure {
+  position: relative;
+  
+}
+figure img {
+  position: relative;
+  z-index: 2;
+}
+
+.icon {
+    height: 75px;
+    width: 120px;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+}
+
+
+figure p {
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  z-index: 1;
+  opacity: 0;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+figure:hover p {
+  bottom: -35px;
+  opacity: 1;
+}
+
+.form_container{
+    width: 720px;
+    height: 165px;
+    float: right;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, .5);
+    border-radius: 20px;
+}
+
+.chat_container {
+    width: 720px;
+    height: 540px;
+    float: right;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, .5);
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+/* チャットログ部分 */
+.chatlog{
+    height: 500px;
+    border: 1px grey;
+    overflow-y: scroll;
+    margin: 20px;
+    white-space: nowrap;
+}
+/* スクロールの幅の設定 */
+.chatlog::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+/* スクロールの背景の設定 */
+.chatlog::-webkit-scrollbar-track {
+  border-radius: 5px;
+  box-shadow: 0 0 4px #aaa inset;
+}
+
+/* スクロールのつまみ部分の設定 */
+.chatlog::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background:#00BCD4;
+}
+
+.chicon {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50% 50%;
+    margin: 0 20px 0 0;
+}
+
+dt {
+    float: left ;
+    clear: left ;
+}
+
+dd{
+  display: inline-block;
+  position: relative; 
+  margin: 0 0 10px 0;
+  padding: 10px;
+  max-width: 500px;
+  border-radius: 12px;
+  background: #e5f8fa;
+  text-align: left;
+  float: left;
+}
+
+dd:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 3px; 
+  left: -19px;
+  border: 8px solid transparent;
+  border-right: 18px solid #e5f8fa;
+  -webkit-transform: rotate(35deg);
+  transform: rotate(35deg);
+}
+
+/* footer {
+  text-align: center;
+  width: 960px;
+  height: 100px;
+  margin-top: 50px;
+  } */

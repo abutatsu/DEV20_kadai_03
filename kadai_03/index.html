@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+
+
+<head>
+  <meta charset="utf-8" />
+  <title>Chatアプリ</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- <script src="js/login.js"></script> -->
+
+  <div class="hwrapper">
+    <div class="header">
+        <div class="logo"><img class="mainimage" src="img/mainimage.png" alt=""></div>
+        <div class="title">ART Chat</div>
+    </div>
+  </div>
+  
+
+  <!-- コンテンツ表示画面 -->
+  <!-- 画像 -->
+  <main>
+  <div class="flex-container">
+    <h2>Type of Art</h2> 
+    
+    <figure>
+      <img class="icon" data-img="0" src="img/icon01.jpg" alt="">
+      <figcaption>
+        <p>西洋画</p>
+      </figcaption>
+    </figure>
+    <figure>
+      <img class="icon" data-img="1" src="img/icon02.jpg" alt="">
+      <figcaption>
+        <p>日本画</p>
+      </figcaption>
+    </figure>
+    <figure>
+      <img class="icon" data-img="2" src="img/icon03.jpg" alt="">
+      <figcaption>
+        <p>現代アート</p>
+      </figcaption>
+    </figure>
+    <figure>
+      <img class="icon" data-img="3" src="img/icon04.jpg" alt="">
+      <figcaption>
+        <p>工芸</p>
+      </figcaption>
+    </figure>
+    <figure>
+      <img class="icon" data-img="4" src="img/icon05.jpg" alt="">
+      <figcaption>
+        <p>写真</p>
+      </figcaption>
+    </figure>
+    <figure>
+      <img class="icon" data-img="5" src="img/icon06.jpg" alt="">
+      <figcaption>
+        <p>建築</p>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="form_container">
+    <form method="POST" autocomplete="off">
+      <!--入力候補をOFFにする-->
+      <div>
+        <!-- 名前 -->
+        <input type="text" id="username" placeholder="Name">
+      </div>
+
+      <div>
+        <!-- テキストエリア -->
+        <textarea name="" id="text" placeholder="Text"></textarea>
+      </div>
+    </form>
+      <!-- 画像アップロード -->
+      <!-- <input id="file" name="file" type="file"> -->
+      <!-- <input type="range" min="0" max="100" value="50" id="a1"> -->
+      <!-- <div>
+        <img id="result" width="300">
+      </div> -->
+
+    <div>
+      <!-- 送信ボタン -->
+      <a href="#" class="send">送信</a>
+    </div>
+  </div>
+  <div class="chat_container">
+    <div class="chatlog">
+      <!-- 保存されたデータが表示される箇所 -->
+      <div id="output"></div>
+    </div>
+  </div>
+  
+  </main>
+  
+  
+  <!--/ コンテンツ表示画面 -->
+
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- JQuery -->
+
+  <!--** 以下Firebase **-->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <!-- 6.6.1に該当する箇所はfirebaseのバージョンですので更新されるたびに随時変わります🤗 -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ja.min.js"></script>
+
+  <script>
+    $(function ()
+      {
+        $(".title").fadeIn("slow");
+        $(".mainimage").fadeIn("slow");
+      });
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBG-vT6p5RhNd6wu2IINCAhXOynCcqNl3Q",
+      authDomain: "dev20chat-1e7df.firebaseapp.com",
+      databaseURL: "https://dev20chat-1e7df-default-rtdb.firebaseio.com/",
+      projectId: "dev20chat-1e7df",
+      storageBucket: "dev20chat-1e7df.appspot.com",
+      messagingSenderId: "723601182317",
+      appId: "1:723601182317:web:08efaad686993674bd3964"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    //firebaseのデーターベース（保存させる場所）を使いますよ
+    const newPostRef = firebase.database().ref();
+
+    // ここから下にjqueryの処理を書いて練習します
+
+    // アイコン
+    let d = 0;
+    const img = ["icon01.jpg", "icon02.jpg", "icon03.jpg", "icon04.jpg", "icon05.jpg", "icon06.jpg",]
+    $(".icon").on("click", function ()
+    {
+      console.log(this);
+      d = $(this).attr("data-img") //attr→data-imgの属性を取得
+    })
+
+    // 日時
+    const t = moment().format('YYYY/MM/DD HH:mm');
+
+    // 画像
+    //ファイルを選択したら:changeイベント
+    // document.querySelector("#file").onchange = function ()
+    // {
+    //   // 各FileAPIが使用可能であれば中を処理していく
+    //   if (window.File && window.FileReader && window.FileList && window.Blob)
+    //   {
+    //     const input = document.querySelector("#file").files[0];
+    //     const reader = new FileReader();  //1
+    //     //失敗イベント：エラー表示
+    //     reader.onerror = function ()
+    //     {
+    //       alert("読み取り時にエラーが発生しました。");
+    //     };
+    //     //成功イベント：読み込んだ画像を#resultに表示
+    //     reader.onload = function ()
+    //     {
+    //       document.querySelector("#result").src = reader.result;
+
+    //     }
+        
+    //     //画像読み込み処理
+    //     reader.readAsDataURL(input);   //2
+    //   }
+    // }
+    // 送信ボタンをクリックされたら次の処理をする
+    $(".send").on("click", function ()
+    {
+      let userNamevalue = $("#username").val();
+      if (userNamevalue == "")
+      {
+        alert("入力されてません");
+        return
+      }
+    })
+
+    $(".send").on("click", function ()
+    {
+
+      newPostRef.push({
+        username: $("#username").val(),
+        text: $("#text").val(),
+        icon: d,
+        time: t,
+      })
+      $("#text").val("");
+      $("#username").val("");
+      
+
+    });
+
+    // 受信処理
+    newPostRef.on("child_added", function (data)
+    {
+      let v = data.val(); //ここに保存されたデータが全て入ってくる
+      let k = data.key; //今回は使いません
+
+      console.log(d);
+      let str = `
+        <dl id=chat__text>
+          <dt><img class="chicon" src='img/${ img[v.icon] }'></dt>
+          <dd>名前：${ v.username }<br>${ v.text }<br>${ v.time }</dd>
+        </dl>`;
+      // ここでデータをhtmlに埋め込む
+      $("#output").prepend(str);
+
+    })
+
+    $("#text").on("keydown", function (e)
+    {
+
+      console.log(e)
+      if (e.keyCode === 13)
+      {
+
+        newPostRef.push({
+          username: $("#username").val(),
+          text: $("#text").val(),
+          icon: d,
+          time: t,
+        })
+        $("#text").val("");
+        $("#username").val("");
+
+      }
+    })
+
+
+  </script>
+<!-- <footer>
+  (c) G's Reserved.
+</footer> -->
+
+</body>
+
+</html>
